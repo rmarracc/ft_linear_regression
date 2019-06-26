@@ -50,3 +50,4 @@ Simple linear regression machine learning algorithm in Python
 
 - The script handles divergent learning rates, but you can remove this line in the learning script
 - The script doesn't contain a matplotlib visualizer for the moment, I will add one soon... maybe
+- To find the b value you only need 2 values on your data, but I decided to process all the values to avoid division by 0 if the two first values are identical
