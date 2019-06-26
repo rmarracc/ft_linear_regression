@@ -47,23 +47,30 @@ def enter_precision():
 	return (precision)
 
 def get_cost(m, sum):
-	return ((1 / 2 * m) * sum)
+	return ((1 / (2 * m)) * sum)
 
 def process_gradiant_algorith(d, n, learning_rate, precision):
 	mileage = normalize(d[:, 0])
 	price = normalize(d[:, 1])
 	t = [0, 0]
 	cost = 1
+	prev = 0
 	i = 0
 	while (abs(cost) > precision):
 		i = i + 1
 		tmp_0 = 0
 		tmp_1 = 0
+		sum = 0
 		for j in range(n):
 			tmp_0 = tmp_0 + (estimate(t, mileage[j]) - price[j])
 			tmp_1 = tmp_1 + (estimate(t, mileage[j]) - price[j]) * mileage[j]
-		cost = float(get_cost(n, tmp_0))
-		print("Current error :", abs(cost * 100), "%")
+			sum = sum + ((estimate(t, mileage[j]) - price[j]) * (estimate(t, mileage[j]) - price[j]))
+		cost = float(get_cost(n, sum))
+		print("Current error :", abs(cost))
+		if (abs(prev - cost) < 0.00000000000001):
+			print("Notice : The result seems to converge, the learning process is stopped")
+			break
+		prev = cost
 		if (abs(cost) > 1000000):
 			print("Error : The result seems to diverge, please decrease the learning rate")
 			sys.exit()

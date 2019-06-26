@@ -24,7 +24,7 @@ Simple linear regression machine learning algorithm in Python
 
 ### Train
 
-- Give the desired precision (0.01 gives a 1% error limit) and the learning rate when it's asked for
+- Give the desired precision (With the following csv file, the lowest cost is a bit under 0.0104) and the learning rate when it's asked for
 - The learning script displays the error rate at each iteration, and the number of iterations at the end of the gradiant descent algorithm
 - The learning script create then a `output.csv` file containing theta0 and theta1
 
@@ -42,7 +42,7 @@ Simple linear regression machine learning algorithm in Python
 - `temp_theta1 = learning rate + 1 / m * sum(hypothesis(x[i]) - y[i]) * x[i]`
 - The hypothesis function here is the estimate function, m represents the number of elements on the `data.csv` file
 - The cost (error value) is also calculated with the following formula :
-- `cost = 1 / 2m * sum(hypothesis(x[i]) - y[i])`
+- `cost = 1 / 2m * sum(hypothesis(x[i]) - y[i])²`
 - When the cost reach the defined precision value, the script reverses the normalization process and create a new tab with the processed theta values
 - Finally, the script retrieve the affine function values with the newly processed data and build the `output.csv` file containing the two values
 
@@ -50,3 +50,4 @@ Simple linear regression machine learning algorithm in Python
 
 - The script handles divergent learning rates, but you can remove this line in the learning script
 - The script doesn't contain a matplotlib visualizer for the moment, I will add one soon... maybe
+- To find the b value you only need 2 values on your data, but I decided to process all the values to avoid division by 0 if the two first values are identical
