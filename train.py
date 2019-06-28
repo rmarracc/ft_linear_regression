@@ -1,5 +1,6 @@
 import numpy
 import sys
+import matplotlib.pyplot as plt
 
 input_file = "data.csv"
 output_file = "output.csv"
@@ -50,9 +51,14 @@ def get_cost(m, sum):
 	return ((1 / (2 * m)) * sum)
 
 def process_gradiant_algorith(d, n, learning_rate, precision):
+	plt.ion()
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	line1, = ax.plot(d[:, 0], d[:, 1], 'x')	
 	mileage = normalize(d[:, 0])
 	price = normalize(d[:, 1])
 	t = [0, 0]
+	line2, = ax.plot(d[:, 0], unnormalize(estimate(t, mileage), d[:, 1]))
 	cost = 1
 	prev = 0
 	i = 0
@@ -76,7 +82,12 @@ def process_gradiant_algorith(d, n, learning_rate, precision):
 			sys.exit()
 		t[0] = t[0] - learning_rate * (1 / n) * tmp_0
 		t[1] = t[1] - learning_rate * (1 / n) * tmp_1
+		line2.set_ydata(unnormalize(estimate(t, mileage), d[:, 1]))
+		fig.canvas.draw()
+		plt.pause(0.01)
 	print("Done in", i, "iterations")
+	input("Press Enter to continue")
+	plt.close()
 	return (unnormalize(estimate(t, mileage), d[:, 1]))
 
 def get_bridge(g, d):
